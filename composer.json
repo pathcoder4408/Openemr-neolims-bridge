@@ -1,0 +1,14 @@
+{
+  "name": "pathcoder4408/openemr-neolims-bridge",
+  "description": "Hybrid NeoLIMS laboratory integration bridge for OpenEMR 8.2",
+  "type": "openemr-module",
+  "license": "GPL-3.0-or-later",
+  "autoload": {
+    "psr-4": {
+      "OpenEMR\\\\Modules\\\\NeoLimsBridge\\\\": "src/"
+    }
+  },
+  "require": {
+    "php": ">=8.2"
+  }
+}
