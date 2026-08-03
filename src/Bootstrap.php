@@ -165,6 +165,24 @@ final class Bootstrap
         $item->label=xlt('NeoLIMS Integration');
         $item->url='/interface/modules/custom_modules/openemr-neolims-bridge/public/index.php';
         $item->children=[]; $item->acl_req=['admin','super']; $item->global_req=[];
+        foreach ([
+            ['neolims_dashboard','Dashboard','index.php'],
+            ['neolims_profiles','Installation Profiles','profiles.php'],
+            ['neolims_mappings','Mappings','mappings.php'],
+            ['neolims_workflows','Workflow Queue','workflows.php'],
+            ['neolims_deadletters','Dead Letters','dead_letters.php'],
+            ['neolims_messages','Messages','messages.php'],
+            ['neolims_diagnostics','Diagnostics','diagnostics.php'],
+            ['neolims_testing','Testing','testing.php'],
+            ['neolims_settings','Settings','settings.php'],
+        ] as [$id,$label,$file]) {
+            $child = new \stdClass();
+            $child->requirement=0; $child->target='mod'; $child->menu_id=$id;
+            $child->label=xlt($label);
+            $child->url='/interface/modules/custom_modules/openemr-neolims-bridge/public/'.$file;
+            $child->children=[]; $child->acl_req=['admin','super']; $child->global_req=[];
+            $item->children[]=$child;
+        }
         $menu=$event->getMenu();
         foreach($menu as $parent){ if($parent->menu_id==='mod0'){ $parent->children[]=$item; break; } }
         $event->setMenu($menu); return $event;

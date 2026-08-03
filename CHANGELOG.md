@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.12.0
+- Added first-class OpenEMR administration interface.
+- Added dashboard, editable installation profiles, mappings, workflow queue, dead letters, messages, diagnostics, testing, and settings pages.
+- Added OpenEMR module submenu navigation.
+
+
 ## 0.11.0
 - Added installation-specific profiles and per-resource direction controls.
 - Added Envision Pathology Billing preset.

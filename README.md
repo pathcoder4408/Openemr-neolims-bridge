@@ -138,3 +138,8 @@ php bin/neolims-operations.php replay <workflow_uuid>
 ## Phase 11: Installation Profiles
 
 The Envision Billing preset receives patient, insurance, encounter, documents, and billing data. Orders and structured results are disabled by default. Every API and workflow operation is checked against the active installation profile.
+
+
+## Phase 12 administration interface
+
+OpenEMR Modules → NeoLIMS Integration now exposes Dashboard, Installation Profiles, Mappings, Workflow Queue, Dead Letters, Messages, Diagnostics, Testing, and Settings.
