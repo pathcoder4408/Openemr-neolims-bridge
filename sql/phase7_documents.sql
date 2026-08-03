@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS `neolims_bridge_document_link` (
+  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `connection_key` VARCHAR(100) NOT NULL,
+  `local_document_id` VARCHAR(150) NOT NULL,
+  `local_report_id` VARCHAR(150) NOT NULL,
+  `openemr_document_id` BIGINT NOT NULL,
+  `openemr_document_uuid` CHAR(36) NOT NULL,
+  `openemr_report_id` BIGINT NOT NULL,
+  `openemr_pid` BIGINT NOT NULL,
+  `filename` VARCHAR(255) NOT NULL,
+  `mimetype` VARCHAR(100) NOT NULL,
+  `content_hash` CHAR(64) NOT NULL,
+  `external_identifier_system` VARCHAR(255) NOT NULL DEFAULT '',
+  `external_identifier_value` VARCHAR(255) NOT NULL DEFAULT '',
+  `created_at` DATETIME NOT NULL,
+  `updated_at` DATETIME NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uq_neolims_document_local` (`connection_key`,`local_document_id`),
+  KEY `idx_neolims_document_uuid` (`openemr_document_uuid`),
+  KEY `idx_neolims_document_report` (`openemr_report_id`),
+  KEY `idx_neolims_document_external` (`external_identifier_system`(140),`external_identifier_value`(140))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

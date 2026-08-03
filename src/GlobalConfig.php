@@ -13,6 +13,8 @@ final class GlobalConfig
     public const STORE_RAW_PAYLOADS = 'neolims_bridge_store_raw_payloads';
     public const REQUIRE_IDENTIFIER = 'neolims_bridge_require_identifier';
     public const SHARED_SECRET = 'neolims_bridge_shared_secret';
+    public const WORKFLOW_MAX_ATTEMPTS = 'neolims_bridge_workflow_max_attempts';
+    public const WORKFLOW_RETRY_SECONDS = 'neolims_bridge_workflow_retry_seconds';
 
     public function __construct(private array $globals)
     {
@@ -74,6 +76,18 @@ final class GlobalConfig
                 'type' => 'text',
                 'default' => '',
                 'description' => 'Optional HMAC secret for direct inbound transport calls.',
+            ],
+            self::WORKFLOW_MAX_ATTEMPTS => [
+                'title' => 'Workflow maximum attempts',
+                'type' => 'text',
+                'default' => '5',
+                'description' => 'Maximum end-to-end workflow attempts before permanent failure.',
+            ],
+            self::WORKFLOW_RETRY_SECONDS => [
+                'title' => 'Workflow base retry delay seconds',
+                'type' => 'text',
+                'default' => '30',
+                'description' => 'Base delay used by exponential retry backoff.',
             ],
         ];
     }

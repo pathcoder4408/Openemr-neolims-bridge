@@ -19,6 +19,7 @@ $messages = (new MessageRepository())->search(25);
     <link rel="stylesheet" href="<?php echo $GLOBALS['assets_static_relative']; ?>/bootstrap/dist/css/bootstrap.min.css">
 </head>
 <body class="container-fluid py-3">
+<p><a class="btn btn-primary" href="profiles.php">Installation Profiles</a></p>
 <h1><?php echo xlt('NeoLIMS Hybrid Integration'); ?></h1>
 <p class="text-muted">
     <?php echo xlt('FHIR, Standard API, and HL7 v2 messages normalize into one idempotent queue.'); ?>

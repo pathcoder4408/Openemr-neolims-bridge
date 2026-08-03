@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS `neolims_bridge_order_link` (
+  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `connection_key` VARCHAR(100) NOT NULL,
+  `local_order_id` VARCHAR(100) NOT NULL,
+  `local_patient_id` VARCHAR(100) NOT NULL,
+  `local_encounter_id` VARCHAR(100) NOT NULL,
+  `openemr_order_uuid` CHAR(36) NOT NULL,
+  `openemr_order_id` BIGINT NOT NULL,
+  `openemr_pid` BIGINT NOT NULL,
+  `openemr_encounter_id` BIGINT NOT NULL,
+  `link_source` VARCHAR(50) NOT NULL,
+  `external_identifier_system` VARCHAR(255) NOT NULL DEFAULT '',
+  `external_identifier_value` VARCHAR(255) NOT NULL DEFAULT '',
+  `created_at` DATETIME NOT NULL,
+  `updated_at` DATETIME NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uq_neolims_order_local` (`connection_key`,`local_order_id`),
+  KEY `idx_neolims_order_uuid` (`openemr_order_uuid`),
+  KEY `idx_neolims_order_external` (`external_identifier_system`(140),`external_identifier_value`(140))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

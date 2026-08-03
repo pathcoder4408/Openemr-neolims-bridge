@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS `neolims_bridge_result_link` (
+  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `connection_key` VARCHAR(100) NOT NULL,
+  `local_report_id` VARCHAR(150) NOT NULL,
+  `local_order_id` VARCHAR(100) NOT NULL,
+  `openemr_report_uuid` CHAR(36) NOT NULL,
+  `openemr_report_id` BIGINT NOT NULL,
+  `openemr_order_id` BIGINT NOT NULL,
+  `revision` INT NOT NULL DEFAULT 1,
+  `report_status` VARCHAR(32) NOT NULL,
+  `link_source` VARCHAR(50) NOT NULL,
+  `external_identifier_system` VARCHAR(255) NOT NULL DEFAULT '',
+  `external_identifier_value` VARCHAR(255) NOT NULL DEFAULT '',
+  `payload_hash` CHAR(64) NOT NULL,
+  `created_at` DATETIME NOT NULL,
+  `updated_at` DATETIME NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uq_neolims_result_local` (`connection_key`,`local_report_id`),
+  KEY `idx_neolims_result_report_uuid` (`openemr_report_uuid`),
+  KEY `idx_neolims_result_order` (`openemr_order_id`),
+  KEY `idx_neolims_result_external` (`external_identifier_system`(140),`external_identifier_value`(140))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

@@ -1,0 +1,8 @@
+<?php
+namespace OpenEMR\Modules\NeoLimsBridge\Repository;
+final class DocumentLinkRepository
+{
+    public function find(string $connection,string $local): ?array { $r=sqlQuery('SELECT * FROM neolims_bridge_document_link WHERE connection_key=? AND local_document_id=? LIMIT 1',[$connection,$local]); return $r?:null; }
+    public function save(array $d): void { sqlStatement('INSERT INTO neolims_bridge_document_link (connection_key,local_document_id,local_report_id,openemr_document_id,openemr_document_uuid,openemr_report_id,openemr_pid,filename,mimetype,content_hash,external_identifier_system,external_identifier_value,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,NOW(),NOW()) ON DUPLICATE KEY UPDATE openemr_document_id=VALUES(openemr_document_id),openemr_document_uuid=VALUES(openemr_document_uuid),openemr_report_id=VALUES(openemr_report_id),openemr_pid=VALUES(openemr_pid),filename=VALUES(filename),mimetype=VALUES(mimetype),content_hash=VALUES(content_hash),external_identifier_system=VALUES(external_identifier_system),external_identifier_value=VALUES(external_identifier_value),updated_at=NOW()',[$d['connection_key'],$d['local_document_id'],$d['local_report_id'],$d['openemr_document_id'],$d['openemr_document_uuid'],$d['openemr_report_id'],$d['openemr_pid'],$d['filename'],$d['mimetype'],$d['content_hash'],$d['external_identifier_system'],$d['external_identifier_value']]); }
+    public function document(int $id): ?array { $r=sqlQuery('SELECT id,uuid,name,mimetype,foreign_id,encounter_id,foreign_reference_id,foreign_reference_table,hash,docdate FROM documents WHERE id=? AND deleted=0',[$id]); if($r&&!empty($r['uuid']))$r['uuid']=\OpenEMR\Common\Uuid\UuidRegistry::uuidToString($r['uuid']); return $r?:null; }
+}

@@ -1,3 +1,1 @@
 NeoLIMS Hybrid Laboratory Integration Bridge
-FHIR, OpenEMR Standard API, and HL7 v2 integration framework for OpenEMR 8.2.
-Version: 0.2.0
