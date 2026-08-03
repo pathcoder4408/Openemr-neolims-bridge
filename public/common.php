@@ -1,8 +1,7 @@
 <?php
 require_once dirname(__DIR__, 4) . '/globals.php';
-require_once $GLOBALS['srcdir'] . '/acl.inc';
 
-if (!acl_check('admin', 'super')) {
+if (!\OpenEMR\Common\Acl\AclMain::aclCheckCore('admin', 'super')) {
     http_response_code(403);
     exit(xlt('Access denied'));
 }
@@ -51,8 +50,24 @@ function nb_page_end(): void
 function nb_table_exists(string $table): bool
 {
     try {
-        return !empty(sqlQuery('SHOW TABLES LIKE ?', [$table]));
-    } catch (Throwable) {
+        $row = sqlQuery(
+            'SELECT 1 AS found
+               FROM information_schema.tables
+              WHERE table_schema = DATABASE()
+                AND table_name = ?
+              LIMIT 1',
+            [$table]
+        );
+
+        return !empty($row['found']);
+    } catch (Throwable $e) {
+        error_log(
+            'NeoLIMS Bridge table check failed for '
+            . $table
+            . ': '
+            . $e->getMessage()
+        );
+
         return false;
     }
 }
