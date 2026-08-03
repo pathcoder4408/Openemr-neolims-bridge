@@ -161,10 +161,10 @@ final class Bootstrap
     {
         if (!$this->config->enabled(GlobalConfig::ENABLE_MENU)) return $event;
         $item = new \stdClass();
-        $item->requirement=0; $item->target='mod'; $item->menu_id='neolims_bridge';
+        $item->requirement=0; $item->target='mod'; $item->menu_id='mod0';
         $item->label=xlt('NeoLIMS Integration');
         $item->url='/interface/modules/custom_modules/openemr-neolims-bridge/public/index.php';
-        $item->children=[]; $item->acl_req=['admin','super']; $item->global_req=[];
+        $item->children=[]; $item->acl_req=[]; $item->global_req=[];
         foreach ([
             ['neolims_dashboard','Dashboard','index.php'],
             ['neolims_profiles','Installation Profiles','profiles.php'],
@@ -184,7 +184,7 @@ final class Bootstrap
             $item->children[]=$child;
         }
         $menu=$event->getMenu();
-        foreach($menu as $parent){ if($parent->menu_id==='mod0'){ $parent->children[]=$item; break; } }
+        foreach($menu as $parent){ if($parent->menu_id==='proimg'){ $parent->children[]=$item; break; } }
         $event->setMenu($menu); return $event;
     }
 }
