@@ -1,5 +1,6 @@
 <?php
 require_once dirname(__DIR__, 4) . '/globals.php';
+require_once $GLOBALS['srcdir'] . '/acl.inc';
 
 if (!acl_check('admin', 'super')) {
     http_response_code(403);
